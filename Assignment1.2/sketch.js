@@ -1,13 +1,16 @@
-let selectedColor = (0);
-let colors=['red','orange','yellow','green','cyan','blue','magenta','brown','white','black'];
+let selectedColor =(0);
+let colors;
 let x;
 let y;
-let size = 30;
+let size; 
 let dragging = false;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
   background(240);
+  colors =['red','orange','yellow','green','cyan','blue','magenta','brown','white','black'];
+  size = 30;
+  
 }
 
 function draw() { 
