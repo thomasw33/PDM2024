@@ -12,7 +12,6 @@ function preload() {
   characters.push(new Character(random(width),random(height),80,80,'assets/cyclops.png',animations));
   characters.push(new Character(random(width),random(height),80,80,'assets/blue.png',animations));
   characters.push(new Character(random(width),random(height),80,80,'assets/miner.png',animations));
-
 }
 
 function setup() {
@@ -52,8 +51,8 @@ function draw() {
 }
 class Character {
   constructor(x,y,width,height,spriteSheet,animations) {
-    x = random(width+200);
-    y = random(height+200);
+    x = random(width+225);
+    y = random(height+225);
     this.sprite = new Sprite(x,y,width,height);
     this.sprite.spriteSheet = spriteSheet;
     this.sprite.collider = 'none';
@@ -61,6 +60,7 @@ class Character {
     this.sprite.addAnis(animations);
     this.sprite.changeAni('stand');
   }
+
   stop() {
     this.sprite.vel.x = 0;
     this.sprite.vel.y = 0;
