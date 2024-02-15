@@ -34,6 +34,8 @@ function draw() {
     }
     else if (kb.pressing('s')) {
       character.walkDown();
+    } else {
+      character.stop();
     }
     
     if (character.sprite.x + character.sprite.width/4 > width) {
