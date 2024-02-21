@@ -1,5 +1,5 @@
-let bugSprite;
-let squishedBugSprite;
+let bug;
+let squishedBug;
 let timer = 30;
 let bugs = [];
 let squishedBugs = 0;
@@ -7,8 +7,8 @@ let gameState = 'title';
 let customFont;
 
 function preload() {
-  bugSprite = loadImage('assets/bug.png');
-  squishedBugSprite = loadImage('assets/squished_bug.png');
+  bug = loadImage('assets/bug.png');
+  squishedBug = loadImage('assets/squished_bug.png');
   customFont = loadFont('assets/Arial.ttf');
 }
 
@@ -36,7 +36,7 @@ class Animation {
 
   setSpriteSheet(spriteSheet) {
     this.spriteSheet = spriteSheet;
-    this.frameCount = (this.spriteSheet === squishedBugSprite) ? 1 : spriteSheet.width / spriteSheet.height;
+    this.frameCount = (this.spriteSheet === squishedBug) ? 1 : spriteSheet.width / spriteSheet.height;
   }
 }
 
@@ -148,7 +148,7 @@ class Bug {
     this.speed = 5;
     this.angle = atan2(random(-1, 1), random(-1, 1));
     this.size = 64;
-    this.animation = new Animation(bugSprite, 4);
+    this.animation = new Animation(bug, 4);
     this.squished = false;
     this.squishTimer = 0;
   }
@@ -179,11 +179,11 @@ class Bug {
     translate(this.x, this.y);
 
     if (this.squished) {
-      this.animation.setSpriteSheet(squishedBugSprite);
+      this.animation.setSpriteSheet(squishedBug);
       rotate(this.angle);
     } else {
       rotate(atan2(sin(this.angle), cos(this.angle)));
-      this.animation.setSpriteSheet(bugSprite);
+      this.animation.setSpriteSheet(bug);
     }
 
     this.animation.show();
