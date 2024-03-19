@@ -31,7 +31,7 @@ function setup() {
   // Create the slider
   filterSlider = createSlider(100, 5000, 3000, 1);
   filterSlider.position(150, 200);
-  filterSlider.mouseMoved(() => {
+  filterSlider.input(() => {
     filter.frequency.value = filterSlider.value();
   });
 }
