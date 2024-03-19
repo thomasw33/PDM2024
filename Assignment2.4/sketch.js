@@ -31,8 +31,7 @@ function setup() {
   // Create the slider
   filterSlider = createSlider(100, 5000, 3000, 1);
   filterSlider.position(150, 200);
-  filterSlider.input(() => {
-    console.log("Filter frequency:", filterSlider.value());
+  filterSlider.changed(() => {
     filter.frequency.value = filterSlider.value();
   });
 }
