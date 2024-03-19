@@ -27,13 +27,10 @@ function preload() {
 
 function setup() {
   createCanvas(400, 400);
-  
+
   // Create the slider
   filterSlider = createSlider(100, 5000, 3000, 1);
   filterSlider.position(150, 200);
-  filterSlider.mouseMoved(() => {
-    filter.frequency.value = filterSlider.value();
-  });
 }
 
 function draw() {
@@ -42,7 +39,6 @@ function draw() {
   } else {
     background(240); // Default background
     text('Press Mouse for The Flash', 150, height / 3);
-    text('Filter Slider', 190, 200);
   }
 }
 
