@@ -1,5 +1,5 @@
 let noise = new Tone.Noise("white"); // Using white noise for a brighter sound
-let filter = new Tone.Filter(1000, 'highpass'); // Using a highpass filter to emphasize high frequencies
+let filter = new Tone.Filter(3000, 'highpass'); // Increased filter frequency to emphasize higher frequencies
 
 // Create an amplitude envelope with a square waveform
 let envelope = new Tone.AmplitudeEnvelope({
@@ -32,7 +32,7 @@ function preload() {
 function setup() {
   createCanvas(400, 400);
 
-  filterSlider = createSlider(100, 5000, 1000, 1); // Adjusted slider range for highpass filter
+  filterSlider = createSlider(100, 5000, 3000, 1); // Adjusted slider range for highpass filter
   filterSlider.position(150, 200);
   filterSlider.mouseMoved(() => {
     filter.frequency.value = filterSlider.value();
