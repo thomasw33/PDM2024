@@ -32,6 +32,7 @@ function setup() {
   filterSlider = createSlider(100, 5000, 3000, 1);
   filterSlider.position(150, 200);
   filterSlider.input(() => {
+    console.log("Filter frequency:", filterSlider.value());
     filter.frequency.value = filterSlider.value();
   });
 }
@@ -56,3 +57,4 @@ function mouseReleased() {
   envelope.triggerRelease();
   noise.stop();
 }
+
