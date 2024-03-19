@@ -20,6 +20,8 @@ let envelope = new Tone.Synth({
 }
 }).toDestination();
 
+
+
 // let amLFO = new Tone.LFO({
 //   frequency: 2,
 //   amplitude: 0.3,
@@ -38,11 +40,7 @@ function preload() {
 function setup() {
  createCanvas(400, 400);
 
- filterSlider = createSlider (100, 5000, 3000, 1);
- filterSlider.position (150, 200);
- filterSlider.mouseMoved(() => {
-  filter.frequency.value = filterSlider.value();
- });
+
 }
 
 
@@ -52,7 +50,6 @@ function draw() {
  } else {
    background(240);
    text('Press Mouse for The Flash', 150, height / 3);
-   text('Filter Slider', 190, 200);
  }
 }
 
