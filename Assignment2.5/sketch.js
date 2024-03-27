@@ -4,22 +4,29 @@ let bugs = [];
 let squishedBugs = 0;
 let gameState = 'title';
 let customFont;
+let backgroundSound;
 let sounds;
 
 function preload() {
   bug = loadImage('assets/bug.png');
   squishedBug = loadImage('assets/squished_bug.png');
   customFont = loadFont('assets/Arial.ttf');
-  
-  sounds = new Tone.Players({
-    'death': 'assets/bug_death.mp3',
-    'miss': 'assets/bug_missed.mp3',
-    'background': 'assets/background_music.mp3',
-    'start': 'assets/start_music.mp3',
-    'end': 'assets/end_music.mp3'
-  }).toDestination();
-}
 
+  // Load background music
+  backgroundSound = new Tone.Player('assets/background_music.mp3', () => {
+    backgroundSound.loop = true;
+    backgroundSound.volume.value = 0.5;
+    backgroundSound.start();
+  }).toDestination();
+
+  // Load other sounds
+  sounds = {
+    'death': new Tone.Player('assets/bug_death.mp3').toDestination(),
+    'miss': new Tone.Player('assets/bug_missed.mp3').toDestination(),
+    'start': new Tone.Player('assets/start_music.mp3').toDestination(),
+    'end': new Tone.Player('assets/end_music.mp3').toDestination()
+  };
+}
 
 class Animation {
   constructor(spriteSheet, frameCount) {
@@ -54,38 +61,42 @@ function setup() {
   frameRate(15);
 
   // Start background music
-  sounds.get('background').loop = true;
-  sounds.get('background').volume.value = 0.5;
-  sounds.get('background').start();
+  if (backgroundSound && backgroundSound.loaded) {
+    backgroundSound.loop = true;
+    backgroundSound.volume.value = 0.5;
+    backgroundSound.start();
+  }
 }
 
 function draw() {
   background(200);
 
   if (gameState === 'title') {
-    if (!sounds.get('start').state) {
-      sounds.get('start').loop = true;
-      sounds.get('start').volume.value = 0.5;
-      sounds.get('start').start();
+    if (!sounds['start'].state) {
+      sounds['start'].loop = true;
+      sounds['start'].volume.value = 0.5;
+      sounds['start'].start();
     }
     titleScreen();
   } else if (gameState === 'playing') {
-    if (!sounds.get('background').state) {
-      sounds.get('background').loop = true;
-      sounds.get('background').volume.value = 0.5;
-      sounds.get('background').start();
+    if (!backgroundSound.state) {
+      backgroundSound.loop = true;
+      backgroundSound.volume.value = 0.5;
+      backgroundSound.start();
     }
     playGame();
   } else if (gameState === 'gameOver') {
-    sounds.get('background').stop();
-    if (!sounds.get('end').state) {
-      sounds.get('end').loop = true;
-      sounds.get('end').volume.value = 0.5;
-      sounds.get('end').start();
+    if (!sounds['end'].state) {
+      sounds['end'].loop = true;
+      sounds['end'].volume.value = 0.5;
+      sounds['end'].start();
     }
+    backgroundSound.stop();
     gameOverScreen();
   }
 }
+
+
 
 function titleScreen() {
   textFont(customFont);
@@ -149,7 +160,7 @@ function mousePressed() {
       if (bug.contains(mouseX, mouseY)) {
         squishedBugs++;
         bug.squish();
-        sounds.get('death').start();
+        sounds['death'].start();
         for (let b of bugs) {
           b.increaseSpeed();
         }
@@ -158,7 +169,7 @@ function mousePressed() {
       }
     }
     if (!bugHit) {
-      sounds.get('miss').start();
+      sounds['miss'].start();
     }
   }
 }
@@ -175,8 +186,8 @@ function startGame() {
 
 function resetGame() {
   gameState = 'title';
-  sounds.get('start').stop();
-  sounds.get('end').stop();
+  sounds['start'].stop();
+  sounds['end'].stop();
 }
 
 class Bug {
